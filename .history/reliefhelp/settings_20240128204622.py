@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
