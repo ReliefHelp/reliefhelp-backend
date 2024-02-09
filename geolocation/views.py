@@ -28,7 +28,6 @@ def track_location(request):
 
 
 @api_view()
-@permission_classes([IsAuthenticated])
 def earthquake_data(request):
     """
     Get earthquake data based on specified parameters.
@@ -126,7 +125,6 @@ def earthquake_data(request):
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
 def track_location_specific_location(request):
     """
     Get location information and earthquake data based on the user's IP address.
@@ -253,7 +251,6 @@ def get_earthquake_data(
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
 def get_current_user_weather(request):
     """
     API endpoint to retrieve current weather data for the user's location
