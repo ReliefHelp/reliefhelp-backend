@@ -135,7 +135,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -170,14 +170,13 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "staticfiles"),
 ]
 
 
-CORS_ALLOWED_ORIGINS = [
-    "https://relief-help.com",
-    "http://relief-help.com",
-    "http://localhost:3000",
+CORS__ALLOWED_ORIGINS =  [
+    "https://relief-help.com"
+
 ]
