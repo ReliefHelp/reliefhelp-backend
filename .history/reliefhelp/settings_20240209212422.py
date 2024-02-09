@@ -90,12 +90,12 @@ WSGI_APPLICATION = "reliefhelp.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 database_url = os.environ.get("DATABASE_URL")
 DATABASES["default"] = dj_database_url.parse(database_url)
 # database_url = os.environ.get("DATABASE_URL")
@@ -135,7 +135,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -170,14 +170,10 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "staticfiles"),
 ]
 
 
-CORS_ALLOWED_ORIGINS = [
-    "https://relief-help.com",
-    "http://relief-help.com",
-    "http://localhost:3000",
-]
+CORS_ALLOWED_ORIGINS = ["*"]

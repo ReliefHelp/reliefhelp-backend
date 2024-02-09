@@ -176,8 +176,4 @@ STATICFILES_DIRS = [
 ]
 
 
-CORS_ALLOWED_ORIGINS = [
-    "https://relief-help.com",
-    "http://relief-help.com",
-    "http://localhost:3000",
-]
+CORS_ALLOWED_ORIGINS = ["*"]
