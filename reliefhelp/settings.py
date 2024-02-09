@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import datetime
 from dotenv import load_dotenv
+from datetime import timedelta
 import dj_database_url
 
 load_dotenv()
@@ -31,7 +32,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "reliefhelp.onrender.com").split(" ")
+ALLOWED_HOSTS = ["*"]
 
 
 AUTH_USER_MODEL = "authentication.User"
@@ -62,6 +63,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "reliefhelp.urls"
@@ -150,8 +152,8 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(minutes=360),
-    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=365),
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=1),
     "ACCESS_TOKEN_LENGTH": 64,
     "REFRESH_TOKEN_LENGTH": 128,
 }
@@ -166,3 +168,5 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+CORS_ALLOW_ALL_ORIGINS = True
