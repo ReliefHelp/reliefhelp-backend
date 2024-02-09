@@ -172,6 +172,6 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 CORS__ALLOWED_ORIGINS =  [
-    "https://relief-help.com"
+    "*"
 
 ]
