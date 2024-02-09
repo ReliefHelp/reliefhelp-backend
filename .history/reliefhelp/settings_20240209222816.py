@@ -154,8 +154,8 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(minutes=360),
-    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=365),
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=1),
     "ACCESS_TOKEN_LENGTH": 64,
     "REFRESH_TOKEN_LENGTH": 128,
 }
@@ -171,10 +171,9 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "staticfiles"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "staticfiles")]
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 
 CORS_ALLOWED_ORIGINS = [
     "https://relief-help.com",
