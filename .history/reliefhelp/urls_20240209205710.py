@@ -15,21 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from rest_framework import permissions
-from django.conf import settings
-from django.conf.urls.static import static
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Relief-Help API",
+        title="Relief help",
         default_version="v1",
-        description="Test description",
-        terms_of_service="https://www.ourapp.com/policies/terms/",
-        contact=openapi.Contact(email="contact@expenses.local"),
-        license=openapi.License(name="Test License"),
+        description="Your API description",
+        terms_of_service="https://www.yourapp.com/terms/",
+        contact=openapi.Contact(email="reliefhelp@gmail.com"),
+        license=openapi.License(name="Your License"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -43,5 +42,6 @@ urlpatterns = [
     path("", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
 ]
 
+# Only include static file serving during development
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
