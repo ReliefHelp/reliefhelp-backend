@@ -9,10 +9,6 @@ from datetime import datetime, timedelta
 from geolocation.models import Earthquake
 
 from geolocation.serializer import EarthquakeSerializer
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
 
 @api_view(['GET'])
 def track_location(request):
@@ -249,6 +245,23 @@ def get_earthquake_data(
         return None
 
 
+# def track_location(request):
+#     ip = requests.get('https://api.ipify.org?format=json')
+#     ip_data = json.loads(ip.text)
+#     res = requests.get('http://ip-api.com/json/' + ip_data["ip"])
+#     location_data = res.text
+
+#     main_location = json.loads(location_data)
+
+#     return Response(main_location)
+
+
+# ip = requests.get("https://api.ipify.org?format=json")
+# ip_data = json.loads(ip.text)
+# res = requests.get("http://ip-api.com/json/" + ip_data["ip"])
+# location_data = json.loads(res.text)
+
+
 @api_view(["GET"])
 def get_current_user_weather(request):
     """
@@ -296,7 +309,7 @@ def get_current_user_weather(request):
             return weather
 
     # OpenWeatherMap API key
-    api_key = os.environ.get("api_key")
+    api_key = "76420d584859aa6973a62b30d232e7da"
 
     # Get user's current location details
     latitude = location_data.get("lat")

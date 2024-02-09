@@ -9,10 +9,6 @@ from datetime import datetime, timedelta
 from geolocation.models import Earthquake
 
 from geolocation.serializer import EarthquakeSerializer
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
 
 @api_view(['GET'])
 def track_location(request):
@@ -30,7 +26,9 @@ def track_location(request):
 def earthquake_data(request):
     """
     Get earthquake data based on specified parameters.
-    Parameters
+    how are you doing
+
+    Parameters:
     - starttime (str): The start time for the earthquake data retrieval in the format 'YYYY-MM-DDTHH:MM:SS'.
     - endtime (str): The end time for the earthquake data retrieval in the format 'YYYY-MM-DDTHH:MM:SS'.
     - minmagnitude (float): The minimum magnitude of earthquakes to include in the results.
@@ -39,14 +37,18 @@ def earthquake_data(request):
     - longitude (float): The longitude of the location for earthquake data retrieval.
     - maxradiuskm (float): The maximum radius (in kilometers) from the specified location for data retrieval.
     - limit (int): The maximum number of earthquakes to retrieve (default is 20).
-    Returns
+
+    Returns:
     A list of dictionaries containing earthquake information with keys:
     - place (str): The location of the earthquake.
     - date (str): The date and time of the earthquake in 'YYYY-MM-DD HH:MM:SS' format.
     - magnitude (float): The magnitude of the earthquake.
-    Example
+
+    Example:
     ```
     GET /earthquake-data/?starttime=2022-01-01T00:00:00&endtime=2022-02-01T00:00:00&latitude=37.7749&longitude=-122.4194
+    ```
+
     This will retrieve earthquake data for the specified time range and location.
     """
 
@@ -127,10 +129,12 @@ def earthquake_data(request):
 def track_location_specific_location(request):
     """
     Get location information and earthquake data based on the user's IP address.
-    Returns
+
+    Returns:
     - `location`: Dictionary containing relevant location information.
     - `earthquake_data`: List of dictionaries containing earthquake information.
-    Example Response
+
+    Example Response:
     {
         "location": {
             "status": "success",
@@ -247,65 +251,3 @@ def get_earthquake_data(
         return result
     else:
         return None
-
-
-@api_view(["GET"])
-def get_current_user_weather(request):
-    """
-    API endpoint to retrieve current weather data for the user's location
-    Parameters
-    None
-    Returns
-    Response JSON response containing weather data or an error message.
-    """
-
-    # Fetch the user's IP address
-    ip = requests.get("https://api.ipify.org?format=json")
-    ip_data = json.loads(ip.text)
-
-    # Get location details using the IP address
-    res = requests.get("http://ip-api.com/json/" + ip_data["ip"])
-    location_data = json.loads(res.text)
-
-    def get_weather_data(api_key, latitude, longitude):
-        """
-        Helper function to fetch weather data from the OpenWeatherMap API.
-        Parameters
-        api_key (str): OpenWeatherMap API key.
-        latitude (float): Latitude of the location.
-        longitude (float): Longitude of the location.
-
-        Returns:
-        dict: Dictionary containing weather data.
-        """
-        base_url = "https://api.openweathermap.org/data/2.5/weather"
-
-        params = {
-            "lat": latitude,
-            "lon": longitude,
-            "appid": api_key,
-        }
-        response = requests.get(base_url, params=params)
-
-        if response.status_code == 200:
-            data = response.json()
-            weather = {
-                "name": data.get("name"),
-                "weather_state": data.get("weather", []),
-            }
-            return weather
-
-    # OpenWeatherMap API key
-    api_key = os.environ.get("api_key")
-
-    # Get user's current location details
-    latitude = location_data.get("lat")
-    longitude = location_data.get("lon")
-
-    # Get current weather data
-    weather_data = get_weather_data(api_key, latitude, longitude)
-
-    if weather_data:
-        return Response({"weather_data": weather_data})
-    else:
-        return Response({"detail": "Weather data not found"}, status=404)
