@@ -177,6 +177,6 @@ STATICFILES_DIRS = [
 
 
 CORS__ALLOWED_ORIGINS =  [
-    "https://relief-help.com"
+    "*"
 
 ]
