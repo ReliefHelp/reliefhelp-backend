@@ -102,9 +102,7 @@ class VerifyEmail(views.APIView):
                 user.is_verified = True
                 user.save()
             frontend_url = "http://relief-help.com"
-
             return redirect(frontend_url)
-
         except jwt.ExpiredSignatureError as identifier:
             return Response(
                 {"error": "Activation Expired"}, status=status.HTTP_400_BAD_REQUEST
