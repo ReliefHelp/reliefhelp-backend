@@ -9,10 +9,6 @@ from datetime import datetime, timedelta
 from geolocation.models import Earthquake
 
 from geolocation.serializer import EarthquakeSerializer
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
 
 @api_view(['GET'])
 def track_location(request):
@@ -247,65 +243,3 @@ def get_earthquake_data(
         return result
     else:
         return None
-
-
-@api_view(["GET"])
-def get_current_user_weather(request):
-    """
-    API endpoint to retrieve current weather data for the user's location
-    Parameters
-    None
-    Returns
-    Response JSON response containing weather data or an error message.
-    """
-
-    # Fetch the user's IP address
-    ip = requests.get("https://api.ipify.org?format=json")
-    ip_data = json.loads(ip.text)
-
-    # Get location details using the IP address
-    res = requests.get("http://ip-api.com/json/" + ip_data["ip"])
-    location_data = json.loads(res.text)
-
-    def get_weather_data(api_key, latitude, longitude):
-        """
-        Helper function to fetch weather data from the OpenWeatherMap API.
-        Parameters
-        api_key (str): OpenWeatherMap API key.
-        latitude (float): Latitude of the location.
-        longitude (float): Longitude of the location.
-
-        Returns:
-        dict: Dictionary containing weather data.
-        """
-        base_url = "https://api.openweathermap.org/data/2.5/weather"
-
-        params = {
-            "lat": latitude,
-            "lon": longitude,
-            "appid": api_key,
-        }
-        response = requests.get(base_url, params=params)
-
-        if response.status_code == 200:
-            data = response.json()
-            weather = {
-                "name": data.get("name"),
-                "weather_state": data.get("weather", []),
-            }
-            return weather
-
-    # OpenWeatherMap API key
-    api_key = os.environ.get("api_key")
-
-    # Get user's current location details
-    latitude = location_data.get("lat")
-    longitude = location_data.get("lon")
-
-    # Get current weather data
-    weather_data = get_weather_data(api_key, latitude, longitude)
-
-    if weather_data:
-        return Response({"weather_data": weather_data})
-    else:
-        return Response({"detail": "Weather data not found"}, status=404)

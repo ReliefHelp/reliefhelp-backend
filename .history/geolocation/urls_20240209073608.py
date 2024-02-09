@@ -4,6 +4,7 @@ from .views import (
     track_location,
     track_location_specific_location,
     get_current_user_weather,
+    get_current_user_climate,
 )
 
 urlpatterns = [
@@ -19,5 +20,10 @@ urlpatterns = [
         "api/user_weather_location/",
         get_current_user_weather,
         name="user_weather_location",
+    ),
+    path(
+        "api/climate-base-on-user/",
+        get_current_user_climate,
+        name="climate-base-on-user",
     ),
 ]
